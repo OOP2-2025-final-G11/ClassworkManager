@@ -12,7 +12,7 @@ def get_timetable():
     }
 
     # DBから取得する場合
-    # for cw in Classwork.select():
-    #     table[cw.day_of_work][cw.period - 1] = cw
+    for cw in Classwork.select():
+        table[cw.day_of_work][cw.period - 1] = cw
 
     return table
