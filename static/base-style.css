@@ -106,3 +106,18 @@ th {
   font-size: 0.75rem;
   color: #666;
 }
+/* 曜日・時限ヘッダ（サイズはそのまま） */
+.timetable th {
+  padding: 8px;
+  height: auto;          /* 明示的に固定しない */
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+/* 授業セルだけ大きくする */
+.timetable td {
+  height: 85px;          /* ← 授業セルのみ */
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+}
