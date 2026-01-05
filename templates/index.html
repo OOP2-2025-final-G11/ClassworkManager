@@ -17,6 +17,22 @@
   <body>
     <h1>時間割管理アプリ</h1>
     <h2>メインページ</h2>
+
+<div class="dashboard-container">
+    <!-- 時間割 -->
+    <div class="timetable-area">
+        {% include "classwork_dashboard.html" %}
+    </div>
+
+
+    <!-- TODO レイアウトを見たかったので仮で作成-->
+    <div class="todo-area">
+  <h2>📝 TODO</h2>
+  <p style="color:#999;">TODO機能は準備中です</p>
+</div>
+
+
+</div>
     <a href="/timetable/upload">画像アップロード</a>
     <a href="/todo/add">todo追加</a>
   </body>
