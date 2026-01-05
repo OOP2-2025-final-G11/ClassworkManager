@@ -1,0 +1,20 @@
+<h2>📅 時間割</h2>
+
+<table class="timetable">
+    <tr>
+        <th>時限</th>
+        {% for day in days %}
+            <th>{{ day }}</th>
+        {% endfor %}
+    </tr>
+
+    {% for i in range(periods) %}
+<tr>
+    <th>{{ i + 1 }}限</th>
+    {% for day in days %}
+        {% set c = timetable[day][i] %}
+        <td>{% if c %}{{ c.name }}{% endif %}</td>
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>
