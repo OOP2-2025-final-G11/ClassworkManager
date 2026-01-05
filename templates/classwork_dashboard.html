@@ -8,12 +8,12 @@
         {% endfor %}
     </tr>
 
-    {% for i in range(periods) %}
+{% for i in range(periods) %}
 <tr>
     <th>{{ i + 1 }}限</th>
     {% for day in days %}
         {% set c = timetable[day][i] %}
-        <td>{% if c %}{{ c.name }}{% endif %}</td>
+        <td>{% if c %}<div class="subject-name">{{ c.name }}</div><div class="classroom">{{ c.place }}</div>{% endif %}</td>
     {% endfor %}
 </tr>
 {% endfor %}
