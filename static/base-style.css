@@ -97,3 +97,12 @@ th {
     content: "—";
     color: #bbb;
 }
+/* 科目名 */
+.subject-name {
+  font-weight: bold;
+}
+/* 教室名 */
+.classroom {
+  font-size: 0.75rem;
+  color: #666;
+}
