@@ -119,13 +119,13 @@ th {
   gap: 20px;
 }
 
-/* 課題名  */
+/* 課題名 */
 .todo-name {
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-/* 締切  */
+/* 締切 */
 .todo-deadline {
   font-size: 1.2rem;
   color: #34e428;
@@ -134,31 +134,19 @@ th {
   border: 1px inset #eee;
 }
 
-/* 完了ボタン */
-.btn-complete {
-  border: 2px solid #000;
-  background-color: #ccc;
-  cursor: pointer;
-}
-
-.todo-footer {
-  margin-top: auto;
-  text-align: right;
-}
-
-.btn-link {
-  border: 1px solid #333;
-  text-decoration: none;
-  display: inline-block;
-}
-
 /* 課題完了 */
 .todo-done {
   text-decoration: line-through;
   color: #888;
 }
 
-/* 削除ボタン */
+.btn-complete {
+  border: 2px solid #000;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+/* 課題削除 */
 .btn-delete {
   border: 2px solid #d9534f;
   background-color: #fff;
@@ -178,4 +166,10 @@ th {
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+/* 課題追加 */
+.todo-footer {
+  margin-top: auto;
+  text-align: right;
 }
