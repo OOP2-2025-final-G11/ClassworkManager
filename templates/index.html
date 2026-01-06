@@ -29,11 +29,12 @@
             </div>
 
             <div class="todo-actions">
-              <form action="/todo/complete/{{ item.id }}" method="POST">
+              <form action="{{ url_for('todo.complete', todo_id=item.id) }}" method="POST">
                 <button type="submit" class="button btn-complete">完了</button>
               </form>
-
-              <form action="/todo/delete/{{ item.id }}" method="POST" onsubmit="return confirm('削除しますか？');">
+              
+              <form action="{{ url_for('todo.delete', todo_id=item.id) }}" method="POST" 
+                    onsubmit="return confirm('本当に削除しますか？');">
                 <button type="submit" class="button btn-delete">削除</button>
               </form>
             </div>
