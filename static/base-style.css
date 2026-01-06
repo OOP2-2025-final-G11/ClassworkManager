@@ -64,3 +64,118 @@ th {
 .breadcrumb li:nth-last-child()::after {
   content: "";
 }
+
+/* ダッシュボード全体のスタイル */
+.dashboard-wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* TODOリストのスタイル */
+.todo-main-outer {
+  flex: 1;
+  border: 2px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fcfcfc;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+/* 課題リスト */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+/* 課題項目 */
+.todo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ccc;
+}
+
+/* 課題内容 */
+.todo-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 課題名  */
+.todo-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* 締切  */
+.todo-deadline {
+  font-size: 1.2rem;
+  color: #28e44d;
+  font-weight: bold;
+  padding: 2px 8px;
+  border: 1px inset #eee;
+}
+
+/* 完了ボタン */
+.btn-complete {
+  border: 2px solid #000;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.todo-footer {
+  margin-top: auto;
+  text-align: right;
+}
+
+.btn-link {
+  border: 1px solid #333;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* 課題完了 */
+.todo-done {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* 削除ボタン */
+.btn-delete {
+  border: 2px solid #d9534f;
+  background-color: #fff;
+  color: #d9534f;
+  cursor: pointer;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.btn-delete:hover {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

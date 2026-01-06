@@ -7,17 +7,44 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='base-style.css') }}"
     />
-    <style>
-      .chart-container {
-        width: 70%;
-        margin: 0 auto;
-      }
-    </style>
   </head>
   <body>
     <h1>時間割管理アプリ</h1>
     <h2>メインページ</h2>
-    <a href="/timetable/upload">画像アップロード</a>
-    <a href="/todo/add">todo追加</a>
+    
+    <div class="dashboard-wrapper">
+      <div class="todo-main-outer">
+        <h3 class="todo-title">TODOリスト</h3>
+        
+        <div class="todo-list">
+          {% for item in todos %}
+          <div class="todo-card">
+            <div class="todo-content">
+              <span class="todo-name {{ 'todo-done' if item.is_finished }}">
+                {{ item.name }}
+              </span>
+              <span class="todo-deadline {{ 'todo-done' if item.is_finished }}">
+                {{ item.deadline }}
+              </span>
+            </div>
+
+            <div class="todo-actions">
+              <form action="/todo/complete/{{ item.id }}" method="POST">
+                <button type="submit" class="button btn-complete">完了</button>
+              </form>
+
+              <form action="/todo/delete/{{ item.id }}" method="POST" onsubmit="return confirm('削除しますか？');">
+                <button type="submit" class="button btn-delete">削除</button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      
+        <div class="todo-footer">
+          <a href="/todo/add" class="button btn-link">課題追加</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
