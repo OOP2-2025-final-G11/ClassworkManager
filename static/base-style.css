@@ -119,6 +119,16 @@ th {
   gap: 20px;
 }
 
+/* 教科名 */
+.todo-subject {
+  font-size: 0.9rem;
+  background-color: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #555;
+  font-weight: bold;
+}
+
 /* 課題名 */
 .todo-name {
   font-weight: bold;
@@ -172,4 +182,10 @@ th {
 .todo-footer {
   margin-top: auto;
   text-align: right;
+}
+
+.btn-link {
+  border: 1px solid #333;
+  text-decoration: none;
+  display: inline-block;
 }

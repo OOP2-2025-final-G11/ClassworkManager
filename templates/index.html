@@ -20,6 +20,9 @@
           {% for item in todos %}
           <div class="todo-card">
             <div class="todo-content">
+              <span class="todo-subject">
+                {{ item.classwork.name }}
+              </span>
               <span class="todo-name {{ 'todo-done' if item.is_finished }}">
                 {{ item.name }}
               </span>
