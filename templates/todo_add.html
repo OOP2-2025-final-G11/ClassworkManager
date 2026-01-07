@@ -15,8 +15,30 @@
     </style>
   </head>
   <body>
-    <h1>時間割管理アプリ</h1>
-    <h2>todo追加ページ</h2>
-    <a href="/">戻る</a>
+    <form method="post">
+      <div>
+        <label>期限</label>
+        <input type="date" name="deadline" required />
+      </div>
+
+      <div>
+        <label>授業名</label>
+        <select name="classwork_id" required>
+          <option value="">選択してください</option>
+          {% for c in classworks %}
+            <option value="{{ c.id }}">{{ c.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label>内容</label>
+        <input type="text" name="name" required />
+      </div>
+
+      <br />
+      <button type="button" onclick="location.href='/'">戻る</button>
+      <button type="submit">登録</button>
+    </form>
   </body>
 </html>
