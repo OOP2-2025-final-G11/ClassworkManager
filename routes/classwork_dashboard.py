@@ -11,7 +11,7 @@ def get_timetable():
         day: [None] * PERIODS for day in DAYS
     }
 
-    # DBから取得する場合
+    # DBから取得する
     for cw in Classwork.select():
         table[cw.day_of_work][cw.period - 1] = cw
 
