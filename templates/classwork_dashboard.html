@@ -1,0 +1,34 @@
+<h2>📅 時間割</h2>
+
+<table class="timetable">
+  <tr>
+    <th>時限</th>
+    {% for day in days %}
+      <th>{{ day_labels[day] }}</th>
+    {% endfor %}
+  </tr>
+
+  {% for i in range(periods) %}
+  <tr>
+    <th>{{ i + 1 }}限</th>
+    {% for day in days %}
+      {% set c = timetable[day][i] %}
+      <td class="timetable-cell">
+        {% if c %}
+          <div class="subject-name">{{ c.name }}</div>
+
+          {% if c.teacher %}
+            <div class="teacher">{{ c.teacher }}</div>
+          {% endif %}
+
+          {% if c.place %}
+            <div class="classroom">{{ c.place }}</div>
+          {% endif %}
+        {% else %}
+          <div class="empty">—</div>
+        {% endif %}
+      </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
