@@ -97,15 +97,20 @@ th {
     content: "—";
     color: #bbb;
 }
+/* 授業セル内のスタイル */
 .subject-name {
   font-size: 1rem;
   font-weight: bold;
 }
-
+.teacher {
+  font-size: 0.9rem;
+  color: #555;
+}
 .classroom {
   font-size: 0.75rem;
   color: #666;
 }
+
 /* 曜日・時限ヘッダ（サイズはそのまま） */
 .timetable th {
   padding: 8px;
