@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 import os
 from services.gemini import analyze_with_gemini
+import json
 
 # Blueprint
 timetable_bp = Blueprint('timetable', __name__, url_prefix='/timetable')
@@ -30,16 +31,10 @@ def upload_image():
     # ファイル名チェック
     if file.filename == '':
         return jsonify({"classworks": []}), 400
+    # ★ ファイルは保存しない（FileStorage を直接渡す）
+    result = analyze_with_gemini(file)
 
-    # 保存先作成
-    os.makedirs(UPLOAD_DIR, exist_ok=True)
-    save_path = os.path.join(UPLOAD_DIR, file.filename)
-    file.save(save_path)
-
-    # Gemini API で解析
-    result = analyze_with_gemini(save_path)
-
-    print(result)#結果をプリント
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
     # 必ず JSON を返す
     return jsonify(result)
