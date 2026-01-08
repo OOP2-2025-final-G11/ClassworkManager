@@ -10,10 +10,17 @@
   </head>
   <body>
     <h1>時間割管理アプリ</h1>
-    <h2>メインページ</h2>
-    
-    <div class="dashboard-wrapper">
-      <div class="todo-main-outer">
+
+<div class="dashboard-container">
+    <!-- 時間割 -->
+    <div class="timetable-area">
+        {% include "classwork_dashboard.html" %}
+    </div>
+
+
+    <!-- TODO レイアウトを見たかったので仮で作成-->
+    <div class="todo-area">
+  <div class="todo-main-outer">
         <h3 class="todo-title">TODOリスト</h3>
         
         <div class="todo-list">
@@ -51,6 +58,11 @@
           <a href="/todo/add" class="button btn-link">課題追加</a>
         </div>
       </div>
-    </div>
+</div>
+
+
+</div>
+    <a href="/timetable/upload">画像アップロード</a>
+    <a href="/todo/add">todo追加</a>
   </body>
 </html>
