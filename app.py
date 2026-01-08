@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 from models import initialize_database
-from routes import blueprints
 from routes.classwork_dashboard import get_timetable, DAYS, PERIODS, DAY_LABELS
 import routes
 from dotenv import load_dotenv
@@ -23,20 +22,14 @@ def create_app():
     # ホームページ
     @app.route('/')
     def index():
-        return render_template('index.html')
-
+        return render_template(
+            'index.html',
+            timetable=get_timetable(),
+            days=DAYS,
+            day_labels=DAY_LABELS,
+            periods=PERIODS,
+            )
     return app
-
-# ホームページのルート
-@app.route('/')
-def index():
-    return render_template(
-        'index.html',
-        timetable=get_timetable(),
-        days=DAYS,
-        day_labels=DAY_LABELS,
-        periods=PERIODS,
-        )
 
 if __name__ == '__main__':
     app = create_app()
