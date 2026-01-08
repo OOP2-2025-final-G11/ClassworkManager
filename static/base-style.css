@@ -152,14 +152,14 @@ th {
 
 .btn-complete {
   border: 2px solid #000;
-  background-color: #ccc;
+  background-color: #f8f9fa;
   cursor: pointer;
 }
 
 /* 完了戻すボタン */
 .btn-undo {
   border: 2px solid #000;
-  background-color: #f8f9fa;
+  background-color: #ccc;
   cursor: pointer;
 }
 
