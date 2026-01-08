@@ -44,8 +44,10 @@
           </div>
           {% endfor %}
         </div>
-      
         <div class="todo-footer">
+          <form action ="{{ url_for('todo.delete_completed') }}" method="POST" 
+                onsubmit="return confirm('完了した課題をすべて削除しますか？');">
+            <button type="submit" class="button btn-delete-completed">完了した課題をすべて削除</button>
           <a href="/todo/add" class="button btn-link">課題追加</a>
         </div>
       </div>
