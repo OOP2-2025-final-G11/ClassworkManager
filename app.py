@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from models import initialize_database
-from routes import blueprints
+import routes
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,8 +14,8 @@ def create_app():
     # データベース初期化
     initialize_database()
 
-    # Blueprint をまとめて登録
-    for blueprint in blueprints:
+    # Blueprint をまとめて登録（遅延取得）
+    for blueprint in routes.get_blueprints():
         app.register_blueprint(blueprint)
 
     # ホームページ
