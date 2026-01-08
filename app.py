@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 from models import initialize_database
 from routes import blueprints
-from models.classwork import Classwork
 from routes.classwork_dashboard import get_timetable, DAYS, PERIODS
 
 app = Flask(__name__)
