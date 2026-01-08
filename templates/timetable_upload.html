@@ -8,15 +8,84 @@
       href="{{ url_for('static', filename='base-style.css') }}"
     />
     <style>
-      .chart-container {
+      .container {
         width: 70%;
         margin: 0 auto;
       }
+
+      .upload-box {
+        border: 2px dashed #aaa;
+        padding: 20px;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #loading {
+        margin-top: 20px;
+        font-weight: bold;
+        display: none;
+      }
     </style>
   </head>
+
   <body>
-    <h1>時間割管理アプリ</h1>
-    <h2>画像アップロードページ</h2>
-    <a href="/">戻る</a>
+    <div class="container">
+      <h1>時間割管理アプリ</h1>
+      <h2>画像アップロードページ</h2>
+
+      <a href="/">← 戻る</a>
+
+      <form id="uploadForm">
+        <div class="upload-box">
+          <p>時間割の画像を選択してください</p>
+          <input
+            type="file"
+            id="imageInput"
+            name="image"
+            accept="image/*"
+            required
+          />
+        </div>
+
+        <button type="submit">アップロード</button>
+      </form>
+
+      <div id="loading">解析中です…</div>
+    </div>
+
+    <script>
+      const form = document.getElementById("uploadForm");
+      const loading = document.getElementById("loading");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const fileInput = document.getElementById("imageInput");
+        if (!fileInput.files.length) return;
+
+        loading.style.display = "block";
+
+        const formData = new FormData();
+        formData.append("image", fileInput.files[0]);
+
+        try {
+          const response = await fetch("/timetable/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error("upload failed");
+          }
+
+          // 成功したらトップへ戻す（表示はしない）
+          window.location.href = "/";
+        } catch (error) {
+          alert("アップロードに失敗しました");
+        } finally {
+          loading.style.display = "none";
+        }
+      });
+    </script>
   </body>
 </html>
