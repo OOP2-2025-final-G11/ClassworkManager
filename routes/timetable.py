@@ -35,8 +35,6 @@ def upload_image():
     # ★ ファイルは保存しない（FileStorage を直接渡す）
     result = analyze_with_gemini(file)
 
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-
     classworks = result.get("classworks", [])
 
     # ===== DB保存処理 =====
