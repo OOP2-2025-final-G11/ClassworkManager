@@ -156,6 +156,13 @@ th {
   cursor: pointer;
 }
 
+/* 完了戻すボタン */
+.btn-undo {
+  border: 2px solid #000;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
 /* 課題削除 */
 .btn-delete {
   border: 2px solid #d9534f;

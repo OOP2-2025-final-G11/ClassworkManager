@@ -18,7 +18,7 @@ def todo():
 @todo_bp.route('/complete/<int:todo_id>', methods=['POST'])
 def complete(todo_id):
     todo = Todo.get_by_id(todo_id)
-    todo.is_finished = True 
+    todo.is_finished = not todo.is_finished 
     todo.save() 
     return redirect(url_for('index'))
 

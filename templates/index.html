@@ -33,7 +33,7 @@
 
             <div class="todo-actions">
               <form action="{{ url_for('todo.complete', todo_id=item.id) }}" method="POST">
-                <button type="submit" class="button btn-complete">完了</button>
+                <button type="submit" class="button {{ 'btn-undo' if item.is_finished else 'btn-complete' }}">{{ '戻す' if item.is_finished else '完了' }}</button>
               </form>
               
               <form action="{{ url_for('todo.delete', todo_id=item.id) }}" method="POST" 
