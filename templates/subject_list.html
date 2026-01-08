@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base-style.css') }}">
+</head>
+<body>
+    <h1>{{ title }}</h1>
+
+    <ul class="breadcrumb">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li>授業一覧</li>
+    </ul>
+
+    <a href="{{ url_for('subject.add') }}">授業を追加</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>授業名</th>
+                <th>教員</th>
+                <th>教室</th>
+                <th>曜日</th>
+                <th>時限</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in subjects %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('subject.edit', subject_id=s.id) }}">編集</a>
+                </td>
+                <td>{{ s.name }}</td>
+                <td>{{ s.teacher }}</td>
+                <td>{{ s.place }}</td>
+                <td>{{ s.day_of_week }}</td>
+                <td>{{ s.period }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
