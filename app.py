@@ -2,15 +2,30 @@ from flask import Flask, render_template
 from models import initialize_database
 from routes import blueprints
 from routes.classwork_dashboard import get_timetable, DAYS, PERIODS, DAY_LABELS
+import routes
+from dotenv import load_dotenv
 
-app = Flask(__name__)
+load_dotenv()
 
-# データベースの初期化
-initialize_database()
+def create_app():
+    app = Flask(__name__)
 
-# 各Blueprintをアプリケーションに登録
-for blueprint in blueprints:
-    app.register_blueprint(blueprint)
+    # 設定
+    app.config['SECRET_KEY'] = 'dev-key'
+
+    # データベース初期化
+    initialize_database()
+
+    # Blueprint をまとめて登録（遅延取得）
+    for blueprint in routes.get_blueprints():
+        app.register_blueprint(blueprint)
+
+    # ホームページ
+    @app.route('/')
+    def index():
+        return render_template('index.html')
+
+    return app
 
 # ホームページのルート
 @app.route('/')
@@ -24,4 +39,5 @@ def index():
         )
 
 if __name__ == '__main__':
+    app = create_app()
     app.run(host='0.0.0.0', port=8080, debug=True)
