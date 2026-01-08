@@ -7,12 +7,6 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='base-style.css') }}"
     />
-    <style>
-      .chart-container {
-        width: 70%;
-        margin: 0 auto;
-      }
-    </style>
   </head>
   <body>
     <h1>時間割管理アプリ</h1>
@@ -26,8 +20,44 @@
 
     <!-- TODO レイアウトを見たかったので仮で作成-->
     <div class="todo-area">
-  <h2>📝 TODO</h2>
-  <p style="color:#999;">TODO機能は準備中です</p>
+  <div class="todo-main-outer">
+        <h3 class="todo-title">TODOリスト</h3>
+        
+        <div class="todo-list">
+          {% for item in todos %}
+          <div class="todo-card">
+            <div class="todo-content">
+              <span class="todo-subject">
+                {{ item.classwork.name }}
+              </span>
+              <span class="todo-name {{ 'todo-done' if item.is_finished }}">
+                {{ item.name }}
+              </span>
+              <span class="todo-deadline {{ 'todo-done' if item.is_finished }}">
+                {{ item.deadline }}
+              </span>
+            </div>
+
+            <div class="todo-actions">
+              <form action="{{ url_for('todo.complete', todo_id=item.id) }}" method="POST">
+                <button type="submit" class="button {{ 'btn-undo' if item.is_finished else 'btn-complete' }}">{{ '戻す' if item.is_finished else '完了' }}</button>
+              </form>
+              
+              <form action="{{ url_for('todo.delete', todo_id=item.id) }}" method="POST" 
+                    onsubmit="return confirm('本当に削除しますか？');">
+                <button type="submit" class="button btn-delete">削除</button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="todo-footer">
+          <form action ="{{ url_for('todo.delete_completed') }}" method="POST" 
+                onsubmit="return confirm('完了した課題をすべて削除しますか？');">
+            <button type="submit" class="button btn-delete-completed">完了した課題をすべて削除</button>
+          <a href="/todo/add" class="button btn-link">課題追加</a>
+        </div>
+      </div>
 </div>
 
 
