@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from models.subject import Subject
+from models.classwork import Classwork
 
 subject_bp = Blueprint('subject', __name__, url_prefix='/subjects')
 
@@ -7,7 +7,7 @@ subject_bp = Blueprint('subject', __name__, url_prefix='/subjects')
 # 授業一覧
 @subject_bp.route('/')
 def list():
-    subjects = Subject.select()
+    subjects = Classwork.select()
     return render_template(
         'subject_list.html',
         title='授業一覧',
@@ -19,11 +19,11 @@ def list():
 @subject_bp.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        Subject.create(
+        Classwork.create(
             name=request.form['name'],
             teacher=request.form['teacher'],
             place=request.form['place'],
-            day_of_week=request.form['day_of_week'],
+            day_of_work=request.form['day_of_work'],
             period=request.form['period']
         )
         return redirect(url_for('subject.list'))
@@ -34,7 +34,7 @@ def add():
 # 授業編集（削除もここで）
 @subject_bp.route('/edit/<int:subject_id>', methods=['GET', 'POST'])
 def edit(subject_id):
-    subject = Subject.get_or_none(Subject.id == subject_id)
+    subject = Classwork.get_or_none(Classwork.id == subject_id)
     if not subject:
         return redirect(url_for('subject.list'))
 
@@ -46,7 +46,7 @@ def edit(subject_id):
         subject.name = request.form['name']
         subject.teacher = request.form['teacher']
         subject.place = request.form['place']
-        subject.day_of_week = request.form['day_of_week']
+        subject.day_of_work = request.form['day_of_work']
         subject.period = request.form['period']
         subject.save()
 
