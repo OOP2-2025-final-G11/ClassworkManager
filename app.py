@@ -18,7 +18,7 @@ for blueprint in blueprints:
 @app.route('/')
 def index():
     # 課題の完了、削除のために、期限順に並べ替えた課題を取得
-    todos = Todo.select().order_by(Todo.deadline.asc())
+    todos = Todo.select().order_by(Todo.is_finished.asc(),Todo.deadline.asc())
     return render_template('index.html', todos=todos)
 
 if __name__ == '__main__':
