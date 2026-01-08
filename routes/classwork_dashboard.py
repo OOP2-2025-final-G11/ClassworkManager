@@ -4,6 +4,13 @@ from models.classwork import Classwork
 classwork_bp = Blueprint("classwork", __name__)
 
 DAYS = ["MON", "TUE", "WED", "THU", "FRI"]
+DAY_LABELS = {
+    "MON": "月",
+    "TUE": "火",
+    "WED": "水",
+    "THU": "木",
+    "FRI": "金",
+}
 PERIODS = 5
 
 def get_timetable():
