@@ -2,11 +2,13 @@ from peewee import SqliteDatabase
 from .db import db
 from .classwork import Classwork
 from .todo import Todo
+from .subject import Subject
 
 # モデルのリストを定義しておくと、後でまとめて登録しやすくなります
 MODELS = [
     Classwork,
-    Todo
+    Todo,
+    Subject
 ]
 
 # データベースの初期化関数

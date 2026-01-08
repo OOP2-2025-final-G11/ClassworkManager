@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>授業追加</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base-style.css') }}">
+</head>
+<body>
+    <h1>授業を追加</h1>
+
+    <ul class="breadcrumb">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="{{ url_for('subject.list') }}">授業一覧</a></li>
+        <li>追加</li>
+    </ul>
+
+    <form method="post">
+        <label>授業名:
+            <input type="text" name="name" required>
+        </label><br>
+
+        <label>教員名:
+            <input type="text" name="teacher" required>
+        </label><br>
+
+        <label>教室:
+            <input type="text" name="place" required>
+        </label><br>
+
+        <label>曜日:
+            <select name="day_of_week" required>
+                <option value="">選択</option>
+                <option>MON</option>
+                <option>TUE</option>
+                <option>WED</option>
+                <option>THU</option>
+                <option>FRI</option>
+            </select>
+        </label><br>
+
+        <label>時限:
+            <input type="number" name="period" min="1" max="7" required>
+        </label><br>
+
+        <button type="submit">追加</button>
+    </form>
+</body>
+</html>
