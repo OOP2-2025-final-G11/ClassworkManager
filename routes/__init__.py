@@ -1,8 +1,4 @@
-from .timetable import timetable_bp
-from .todo import todo_bp
-
-# Blueprintをリストとしてまとめる
-blueprints = [
-  timetable_bp,
-	todo_bp,
-]
+def get_blueprints():
+    from .timetable import timetable_bp
+    from .todo import todo_bp
+    return [timetable_bp, todo_bp]
