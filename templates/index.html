@@ -14,15 +14,20 @@
 <div class="dashboard-container">
     <!-- 時間割 -->
     <div class="timetable-area">
-        {% include "classwork_dashboard.html" %}
+      <div class="section-header">
+        <h2>時間割</h2>
+        <a href="/timetable/upload" class="button btn-upload-small" style="text-decoration: none;">
+          画像アップロード
+        </a>
+      </div>
+      {% include "classwork_dashboard.html" %}
     </div>
 
 
-    <!-- TODO レイアウトを見たかったので仮で作成-->
+    <!-- TODOリスト -->
     <div class="todo-area">
-  <div class="todo-main-outer">
-        <h3 class="todo-title">TODOリスト</h3>
-        
+      <h2>TODOリスト</h2>
+      <div class="todo-main-outer">
         <div class="todo-list">
           {% for item in todos %}
           <div class="todo-card">
@@ -34,7 +39,7 @@
                 {{ item.name }}
               </span>
               <span class="todo-deadline {{ 'todo-done' if item.is_finished }}">
-                {{ item.deadline }}
+                {{ item.deadline.strftime('%Y-%m-%d %H:%M') }}
               </span>
             </div>
 
@@ -58,11 +63,5 @@
           <a href="/todo/add" class="button btn-link">課題追加</a>
         </div>
       </div>
-</div>
-
-
-</div>
-    <a href="/timetable/upload">画像アップロード</a>
-    <a href="/todo/add">todo追加</a>
-  </body>
-</html>
+    </div>
+  </div>
