@@ -17,7 +17,7 @@ def todo_add():
         name = request.form.get('name')
         deadline_str = request.form.get('deadline')
 
-        deadline = datetime.strptime(deadline_str, '%Y-%m-%d')
+        deadline = datetime.strptime(deadline_str, '%Y-%m-%dT%H:%M')
 
         Todo.create(
             classwork=classwork_id,
