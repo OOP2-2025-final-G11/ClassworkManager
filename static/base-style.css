@@ -259,3 +259,8 @@ th {
   vertical-align: middle;
   text-align: center;
 }
+
+.upload-box.dragover {
+  border-color: #4caf50;
+  background-color: #f0fff4;
+}
