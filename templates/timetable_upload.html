@@ -36,16 +36,16 @@
       <a href="/">← 戻る</a>
 
       <form id="uploadForm">
-        <div class="upload-box">
-          <p>時間割の画像を選択してください</p>
-          <input
-            type="file"
-            id="imageInput"
-            name="image"
-            accept="image/*"
-            required
-          />
-        </div>
+        <div class="upload-box" id="dropArea">
+           <p>時間割の画像を選択してください（ドラッグ&ドロップ対応）</p>
+           <input
+           type="file"
+           id="imageInput"
+           name="image"
+           accept="image/*"
+           required
+           />
+         </div>
 
         <button type="submit">アップロード</button>
       </form>
@@ -54,38 +54,77 @@
     </div>
 
     <script>
-      const form = document.getElementById("uploadForm");
-      const loading = document.getElementById("loading");
+  const form = document.getElementById("uploadForm");
+  const loading = document.getElementById("loading");
+  const dropArea = document.getElementById("dropArea");
+  const fileInput = document.getElementById("imageInput");
+  const fileNameView = document.getElementById("fileName");
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+  function setFile(file) {
+    // file input に反映
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    fileInput.files = dt.files;
 
-        const fileInput = document.getElementById("imageInput");
-        if (!fileInput.files.length) return;
+    // ファイル名表示
+    fileNameView.textContent = `選択中のファイル：${file.name}`;
+  }
 
-        loading.style.display = "block";
+  // 手動選択時
+  fileInput.addEventListener("change", () => {
+    if (!fileInput.files.length) return;
+    setFile(fileInput.files[0]);
+  });
 
-        const formData = new FormData();
-        formData.append("image", fileInput.files[0]);
+  // submit（ここで初めてアップロード）
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!fileInput.files.length) return;
 
-        try {
-          const response = await fetch("/timetable/upload", {
-            method: "POST",
-            body: formData,
-          });
+    loading.style.display = "block";
 
-          if (!response.ok) {
-            throw new Error("upload failed");
-          }
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
 
-          // 成功したらトップへ戻す（表示はしない）
-          window.location.href = "/";
-        } catch (error) {
-          alert("アップロードに失敗しました");
-        } finally {
-          loading.style.display = "none";
-        }
+    try {
+      const response = await fetch("/timetable/upload", {
+        method: "POST",
+        body: formData,
       });
-    </script>
+
+      if (!response.ok) throw new Error();
+
+      window.location.href = "/";
+    } catch {
+      alert("アップロードに失敗しました");
+    } finally {
+      loading.style.display = "none";
+    }
+  });
+
+  // drag over
+  ["dragenter", "dragover"].forEach((eventName) => {
+    dropArea.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropArea.classList.add("dragover");
+    });
+  });
+
+  ["dragleave", "drop"].forEach((eventName) => {
+    dropArea.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropArea.classList.remove("dragover");
+    });
+  });
+
+  // drop（★ セットするだけ）
+  dropArea.addEventListener("drop", (e) => {
+    const files = e.dataTransfer.files;
+    if (!files.length) return;
+    setFile(files[0]);
+  });
+</script>
+
+
   </body>
 </html>
