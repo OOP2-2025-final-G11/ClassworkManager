@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>授業編集</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='base-style.css') }}">
 </head>
+
 <body>
     <h1>授業を編集</h1>
 
@@ -14,32 +16,55 @@
         <li>編集</li>
     </ul>
 
-    <form method="post">
+    <form method="post" id="subject-form">
+        <input type="hidden" name="force" id="force">
+
         <label>授業名:
-            <input type="text" name="name" value="{{ subject.name }}" required>
+            <input type="text" name="name" required value="{{ form_data.name if form_data else subject.name }}">
         </label><br>
 
         <label>教員名:
-            <input type="text" name="teacher" value="{{ subject.teacher }}" required>
+            <input type="text" name="teacher" required value="{{ form_data.teacher if form_data else subject.teacher }}">
         </label><br>
 
         <label>教室:
-            <input type="text" name="place" value="{{ subject.place }}" required>
+            <input type="text" name="place" required value="{{ form_data.place if form_data else subject.place }}">
         </label><br>
 
         <label>曜日:
-            <input type="text" name="day_of_work" value="{{ subject.day_of_work }}" required>
+            <select name="day_of_work" required>
+                {% for key, label in day_labels.items() %}
+                <option value="{{ key }}" {% if (form_data and form_data.day_of_work==key) or (not form_data and
+                    subject.day_of_work==key) %} selected {% endif %}>
+                    {{ label }}
+                </option>
+                {% endfor %}
+            </select>
         </label><br>
 
         <label>時限:
-            <input type="number" name="period" value="{{ subject.period }}" required>
+            <input type="number" name="period" min="1" max="7" required value="{{ form_data.period if form_data else subject.period }}">
         </label><br>
 
         <button type="submit">保存</button>
-        <button type="submit" name="delete" value="1"
-                onclick="return confirm('削除しますか？')">
+        <button type="submit" name="delete" value="1" onclick="return confirm('削除しますか？')">
             削除
         </button>
     </form>
+
+    {% if conflict %}
+    <script>
+        const message =
+            "{{ day_labels[conflict.day_of_work] }}曜日{{ conflict.period }}限目には\n" +
+            "「{{ conflict.name }}」が入っています。\n" +
+            "削除して上書きしますか？";
+
+        if (confirm(message)) {
+            document.getElementById('force').value = 'yes';
+            document.getElementById('subject-form').submit();
+        }
+    </script>
+    {% endif %}
 </body>
+
 </html>
