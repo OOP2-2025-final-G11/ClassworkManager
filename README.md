@@ -21,7 +21,7 @@ Flask, Gemini API, SQLite
 
 - 時間割  
 1. ダッシュボードの「画像アップロード」ボタンをクリックし、画像アップロードページに進みます。　
-![alt text](CR_1.png)
+![alt text](https://github.com/user-attachments/assets/a4fe0e4e-a0a9-4c2e-ae20-541c9520b381)
 
 2. 時間割の情報がある画像をアップロードします。  
 ![alt text](CR_2.png)
