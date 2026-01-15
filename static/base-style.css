@@ -64,3 +64,198 @@ th {
 .breadcrumb li:nth-last-child()::after {
   content: "";
 }
+
+/* TODOリストのスタイル */
+.todo-main-outer {
+  flex: 1;
+  border: 2px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fcfcfc;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+/* 課題リスト */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+/* 課題項目 */
+.todo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ccc;
+}
+
+/* 課題内容 */
+.todo-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 教科名 */
+.todo-subject {
+  font-size: 0.9rem;
+  background-color: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #555;
+  font-weight: bold;
+}
+
+/* 課題名 */
+.todo-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* 締切 */
+.todo-deadline {
+  font-size: 1.2rem;
+  color: #34e428;
+  font-weight: bold;
+  padding: 2px 8px;
+  border: 1px inset #eee;
+}
+
+/* 課題完了 */
+.todo-done {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.btn-complete {
+  border: 2px solid #000;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+/* 完了戻すボタン */
+.btn-undo {
+  border: 2px solid #000;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+/* 課題削除 */
+.btn-delete {
+  border: 2px solid #d9534f;
+  background-color: #fff;
+  color: #d9534f;
+  cursor: pointer;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* 完了した課題を一括削除 */
+.btn-delete-completed {
+  border: 2px solid #d9534f;
+  background-color: #fdf2f2;
+  color: #d9534f;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-delete:hover {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 課題追加 */
+.todo-footer {
+  margin-top: auto;
+  text-align: right;
+}
+
+.btn-link {
+  border: 1px solid #333;
+  text-decoration: none;
+  display: inline-block;
+}
+/* ダッシュボード全体 */
+.dashboard-container {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+/* 時間割エリア */
+.timetable-area {
+  flex: 3;          /* ← 画面の約3/4 */
+}
+
+/* TODOエリア */
+.todo-area {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* 時間割テーブル */
+.timetable {
+  table-layout: fixed;
+}
+.timetable th,
+.timetable td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/*時間割の空セルを「-」で表示*/
+.timetable td:empty::after {
+    content: "—";
+    color: #bbb;
+}
+/* 授業セル内のスタイル */
+.subject-name {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.teacher {
+  font-size: 0.9rem;
+  color: #555;
+}
+.classroom {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* 曜日・時限ヘッダ（サイズはそのまま） */
+.timetable th {
+  padding: 8px;
+  height: auto;          /* 明示的に固定しない */
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+/* 授業セルだけ大きくする */
+.timetable td {
+  height: 85px;          /* ← 授業セルのみ */
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+}
