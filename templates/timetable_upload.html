@@ -74,6 +74,48 @@
       #errorMessage.show {
         display: block;
       }
+
+      #uploadForm button {
+        margin-top: 20px;
+        padding: 15px 40px;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      #uploadForm button:hover {
+        background-color: #0056b3;
+      }
+
+      #uploadForm button:active {
+        background-color: #004085;
+      }
+
+      .back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        font-size: 14px;
+        background-color: #6c757d;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .back-button:hover {
+        background-color: #5a6268;
+      }
+
+      .back-button:active {
+        background-color: #4e555b;
+      }
     </style>
   </head>
 
@@ -82,7 +124,7 @@
       <h1>時間割管理アプリ</h1>
       <h2>画像アップロードページ</h2>
 
-      <a href="/">← 戻る</a>
+      <a href="/" class="back-button">← 戻る</a>
 
       <form id="uploadForm">
         <div class="upload-box" id="dropArea">
