@@ -52,7 +52,7 @@ def upload_image():
             "success": False,
             "message": "時間割の読み取りに失敗しました。別の画像をお試しください。",
             "classworks": []
-        }), 200
+        }), 400
 
     # ===== DB保存処理 =====
     try:
