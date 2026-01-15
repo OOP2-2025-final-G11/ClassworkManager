@@ -295,12 +295,10 @@ th {
   text-align: center;
 }
 
-<<<<<<< origin/classwork_upload
 .upload-box.dragover {
   border-color: #4caf50;
   background-color: #f0fff4;
 }
-=======
 .btn-upload-small {
   padding: 2px 8px;
   font-size: 1rem;
@@ -312,5 +310,4 @@ th {
 
 .btn-upload-small:hover {
   background-color: #e2e6ea;
->>>>>>> main
 }
