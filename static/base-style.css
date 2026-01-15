@@ -311,3 +311,74 @@ th {
 .btn-upload-small:hover {
   background-color: #e2e6ea;
 }
+
+/* Todoボタン */
+
+.todo-back-button {
+  padding: 5px 11px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+}
+
+.todo-back-button:hover {
+  background-color: #e2e6ea;
+}
+
+.todo-add-button {
+  padding: 5px 11px;
+  font-size: 1rem;
+  background-color: #ededed;
+  border: 1px solid #d6d6d6;
+  border-radius: 4px;
+  color: #333;
+}
+
+.todo-add-button:hover {
+  background-color: #b5bdc4;
+}
+
+.todo-form-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Todo追加フォーム */
+
+.todo-form {
+  max-width: 420px;
+  margin-top: 15px;
+}
+
+.todo-form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.todo-form-group label {
+  font-size: 0.9rem;
+  width: 80px;
+  color: #333;
+}
+
+.todo-form-group input,
+.todo-form-group select {
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.todo-form-group input:focus,
+.todo-form-group select:focus {
+  outline: none;
+  border-color: #7aa7d9;
+  box-shadow: 0 0 0 1px rgba(122, 167, 217, 0.4);
+}
