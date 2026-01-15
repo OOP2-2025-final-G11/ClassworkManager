@@ -382,3 +382,20 @@ th {
   border-color: #7aa7d9;
   box-shadow: 0 0 0 1px rgba(122, 167, 217, 0.4);
 }
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-row label {
+  width: 80px;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.form-row select,
+.form-row input {
+  width: 250px;
+}
