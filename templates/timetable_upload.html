@@ -20,10 +20,59 @@
         margin-top: 20px;
       }
 
-      #loading {
-        margin-top: 20px;
-        font-weight: bold;
+      #uploadForm {
+        display: block;
+      }
+
+      #uploadForm.hidden {
         display: none;
+      }
+
+      #loading {
+        display: none;
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      #loading.show {
+        display: block;
+      }
+
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .loading-text {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+        margin-top: 20px;
+      }
+
+      #errorMessage {
+        display: none;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #fee;
+        border: 1px solid #f00;
+        border-radius: 4px;
+        color: #c00;
+        font-weight: bold;
+      }
+
+      #errorMessage.show {
+        display: block;
       }
     </style>
   </head>
@@ -50,12 +99,18 @@
         <button type="submit">アップロード</button>
       </form>
 
-      <div id="loading">解析中です…</div>
+      <div id="errorMessage"></div>
+
+      <div id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">時間割を解析中です…</div>
+      </div>
     </div>
 
     <script>
   const form = document.getElementById("uploadForm");
   const loading = document.getElementById("loading");
+  const errorMessage = document.getElementById("errorMessage");
   const dropArea = document.getElementById("dropArea");
   const fileInput = document.getElementById("imageInput");
   const fileNameView = document.getElementById("fileName");
@@ -67,7 +122,9 @@
     fileInput.files = dt.files;
 
     // ファイル名表示
-    fileNameView.textContent = `選択中のファイル：${file.name}`;
+    if (fileNameView) {
+      fileNameView.textContent = `選択中のファイル：${file.name}`;
+    }
   }
 
   // 手動選択時
@@ -81,7 +138,13 @@
     e.preventDefault();
     if (!fileInput.files.length) return;
 
-    loading.style.display = "block";
+    // エラーメッセージをクリア
+    errorMessage.classList.remove("show");
+    errorMessage.textContent = "";
+
+    // フォームを非表示にしてローディング画面を表示
+    form.classList.add("hidden");
+    loading.classList.add("show");
 
     const formData = new FormData();
     formData.append("image", fileInput.files[0]);
@@ -92,13 +155,32 @@
         body: formData,
       });
 
-      if (!response.ok) throw new Error();
+      const result = await response.json();
 
-      window.location.href = "/";
-    } catch {
-      alert("アップロードに失敗しました");
-    } finally {
-      loading.style.display = "none";
+      // レスポンスのステータスコードとclassworksの個数をチェック
+      if (!response.ok || !result.success || result.classworks.length === 0) {
+        // エラー表示
+        form.classList.remove("hidden");
+        loading.classList.remove("show");
+        errorMessage.classList.add("show");
+        errorMessage.textContent = result.message || "時間割の読み取りに失敗しました。別の画像をお試しください。";
+        // ファイル選択をクリア
+        fileInput.value = "";
+        return;
+      }
+
+      // 解析完了後、2秒後にホームページへリダイレクト
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+    } catch (error) {
+      // エラー時はフォームとローディング画面を戻す
+      form.classList.remove("hidden");
+      loading.classList.remove("show");
+      // ファイル選択をクリア
+      fileInput.value = "";
+      errorMessage.classList.add("show");
+      errorMessage.textContent = "時間割の読み取りに失敗しました。別の画像をお試しください。";
     }
   });
 
