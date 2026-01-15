@@ -20,10 +20,101 @@
         margin-top: 20px;
       }
 
-      #loading {
-        margin-top: 20px;
-        font-weight: bold;
+      #uploadForm {
+        display: block;
+      }
+
+      #uploadForm.hidden {
         display: none;
+      }
+
+      #loading {
+        display: none;
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      #loading.show {
+        display: block;
+      }
+
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .loading-text {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+        margin-top: 20px;
+      }
+
+      #errorMessage {
+        display: none;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #fee;
+        border: 1px solid #f00;
+        border-radius: 4px;
+        color: #c00;
+        font-weight: bold;
+      }
+
+      #errorMessage.show {
+        display: block;
+      }
+
+      #uploadForm button {
+        margin-top: 20px;
+        padding: 15px 40px;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      #uploadForm button:hover {
+        background-color: #0056b3;
+      }
+
+      #uploadForm button:active {
+        background-color: #004085;
+      }
+
+      .back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        font-size: 14px;
+        background-color: #6c757d;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .back-button:hover {
+        background-color: #5a6268;
+      }
+
+      .back-button:active {
+        background-color: #4e555b;
       }
     </style>
   </head>
@@ -33,59 +124,131 @@
       <h1>時間割管理アプリ</h1>
       <h2>画像アップロードページ</h2>
 
-      <a href="/">← 戻る</a>
+      <a href="/" class="back-button">← 戻る</a>
 
       <form id="uploadForm">
-        <div class="upload-box">
-          <p>時間割の画像を選択してください</p>
-          <input
-            type="file"
-            id="imageInput"
-            name="image"
-            accept="image/*"
-            required
-          />
-        </div>
+        <div class="upload-box" id="dropArea">
+           <p>時間割の画像を選択してください（ドラッグ&ドロップ対応）</p>
+           <input
+           type="file"
+           id="imageInput"
+           name="image"
+           accept="image/*"
+           required
+           />
+         </div>
 
         <button type="submit">アップロード</button>
       </form>
 
-      <div id="loading">解析中です…</div>
+      <div id="errorMessage"></div>
+
+      <div id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">時間割を解析中です…</div>
+      </div>
     </div>
 
     <script>
-      const form = document.getElementById("uploadForm");
-      const loading = document.getElementById("loading");
+  const form = document.getElementById("uploadForm");
+  const loading = document.getElementById("loading");
+  const errorMessage = document.getElementById("errorMessage");
+  const dropArea = document.getElementById("dropArea");
+  const fileInput = document.getElementById("imageInput");
+  const fileNameView = document.getElementById("fileName");
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+  function setFile(file) {
+    // file input に反映
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    fileInput.files = dt.files;
 
-        const fileInput = document.getElementById("imageInput");
-        if (!fileInput.files.length) return;
+    // ファイル名表示
+    if (fileNameView) {
+      fileNameView.textContent = `選択中のファイル：${file.name}`;
+    }
+  }
 
-        loading.style.display = "block";
+  // 手動選択時
+  fileInput.addEventListener("change", () => {
+    if (!fileInput.files.length) return;
+    setFile(fileInput.files[0]);
+  });
 
-        const formData = new FormData();
-        formData.append("image", fileInput.files[0]);
+  // submit（ここで初めてアップロード）
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!fileInput.files.length) return;
 
-        try {
-          const response = await fetch("/timetable/upload", {
-            method: "POST",
-            body: formData,
-          });
+    // エラーメッセージをクリア
+    errorMessage.classList.remove("show");
+    errorMessage.textContent = "";
 
-          if (!response.ok) {
-            throw new Error("upload failed");
-          }
+    // フォームを非表示にしてローディング画面を表示
+    form.classList.add("hidden");
+    loading.classList.add("show");
 
-          // 成功したらトップへ戻す（表示はしない）
-          window.location.href = "/";
-        } catch (error) {
-          alert("アップロードに失敗しました");
-        } finally {
-          loading.style.display = "none";
-        }
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+
+    try {
+      const response = await fetch("/timetable/upload", {
+        method: "POST",
+        body: formData,
       });
-    </script>
+
+      const result = await response.json();
+
+      // レスポンスのステータスコードとclassworksの個数をチェック
+      if (!response.ok || !result.success || result.classworks.length === 0) {
+        // エラー表示
+        form.classList.remove("hidden");
+        loading.classList.remove("show");
+        errorMessage.classList.add("show");
+        errorMessage.textContent = result.message || "時間割の読み取りに失敗しました。別の画像をお試しください。";
+        // ファイル選択をクリア
+        fileInput.value = "";
+        return;
+      }
+
+      // 解析完了後、2秒後にホームページへリダイレクト
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+    } catch (error) {
+      // エラー時はフォームとローディング画面を戻す
+      form.classList.remove("hidden");
+      loading.classList.remove("show");
+      // ファイル選択をクリア
+      fileInput.value = "";
+      errorMessage.classList.add("show");
+      errorMessage.textContent = "時間割の読み取りに失敗しました。別の画像をお試しください。";
+    }
+  });
+
+  // drag over
+  ["dragenter", "dragover"].forEach((eventName) => {
+    dropArea.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropArea.classList.add("dragover");
+    });
+  });
+
+  ["dragleave", "drop"].forEach((eventName) => {
+    dropArea.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropArea.classList.remove("dragover");
+    });
+  });
+
+  // drop（★ セットするだけ）
+  dropArea.addEventListener("drop", (e) => {
+    const files = e.dataTransfer.files;
+    if (!files.length) return;
+    setFile(files[0]);
+  });
+</script>
+
+
   </body>
 </html>
