@@ -24,13 +24,13 @@ Flask, Gemini API, SQLite
 ![alt text](https://github.com/user-attachments/assets/a4fe0e4e-a0a9-4c2e-ae20-541c9520b381)
 
 2. 時間割の情報がある画像をアップロードします。  
-![alt text](CR_2.png)
+![alt text](https://github.com/OOP2-2025-final-G11/ClassworkManager/issues/11#issuecomment-3753178927)
 
 3. しばらくすると自動でダッシュボード画面に戻り、画像の内容がダッシュボードの時間割に反映されます。
 
 - 課題リスト
 1. ダッシュボードの「課題追加」ボタンをクリックし、課題を追加するページに進みます。
-![alt text](TD_1.png)
+![alt text](https://github.com/OOP2-2025-final-G11/ClassworkManager/issues/11#issuecomment-3753182038)
 
 2. 「期限、授業名、内容」を入力し、登録をクリックすると課題が登録されます。
 3. ダッシュボードに戻ると課題がリストで表示され、「完了」を押すと課題に横線が引かれ、「削除」ボタンを押すと課題を削除できます。「完了した課題をすべて削除」ボタンで完了した課題の一括削除も可能です。
