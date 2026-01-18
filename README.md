@@ -50,7 +50,7 @@ cd ClassworkManager
 
 ```
 touch .env
-echo "GEMINI_API_KEY = "xxxxxxxxx" >> .env
+echo "GEMINI_API_KEY = \"xxxxxxxxx\"" >> .env
 ```
 
 3. 仮想環境を作る
